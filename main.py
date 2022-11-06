@@ -1,5 +1,4 @@
 import telebot
-import re
 import utils
 import parser
 
