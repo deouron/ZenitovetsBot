@@ -6,12 +6,12 @@ def send_helper_text(bot, message):
     bot.send_message(message.chat.id, text=utils.HELPER_TEXT)
 
 
-def kick_user(bot, message):
+def ban_user(bot, message):
     bot.kick_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
     bot.reply_to(message, "Пользователь " + message.reply_to_message.from_user.first_name + " забанен!")
 
 
-def bun_user(bot, message):
+def unban_user(bot, message):
     bot.unban_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
     bot.reply_to(message, "Пользователь " + message.reply_to_message.from_user.first_name + " разбанен!")
 

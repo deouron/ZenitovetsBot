@@ -2,7 +2,7 @@ import telebot
 import utils
 from utils import check_admin, is_replied
 import parsers
-from commands import send_helper_text, kick_user, bun_user, promote_user, send_statistics, leave_chat, send_matches, \
+from commands import send_helper_text, ban_user, unban_user, promote_user, send_statistics, leave_chat, send_matches, \
     send_table, send_news, ban_spartak
 from checkers import check_greeting_reply, check_spartak_fan
 
@@ -12,10 +12,10 @@ def process_message(message):
         send_helper_text(bot, message)
     elif message.text == '/ban@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
-            kick_user(bot, message)
+            ban_user(bot, message)
     elif message.text == '/unban@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
-            bun_user(bot, message)
+            unban_user(bot, message)
     elif message.text == '/admin@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
             promote_user(bot, message)
