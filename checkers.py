@@ -14,3 +14,10 @@ def check_greeting_reply(bot, message, wait_answer_from):
         bot.reply_to(message, "@" + message.from_user.username +
                      ' болеет за ' + message.text + ' (либо проигнорил мой вопрос 😢)')
         wait_answer_from.remove(message.from_user.id)
+
+
+def check_ban_reply(bot, message, wait_answer_from):
+    if message.from_user.id in wait_answer_from:
+        bot.reply_to(message, "@" + message.from_user.username +
+                     ' болеет за ' + message.text + ' (либо проигнорил мой вопрос 😢)')
+        wait_answer_from.remove(message.from_user.id)

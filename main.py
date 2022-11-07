@@ -2,10 +2,10 @@ import telebot
 import utils
 from utils import check_admin, is_replied
 import parsers
-from commands import send_helper_text, ban_user, unban_user, promote_user, send_statistics, leave_chat, send_matches, \
-    send_table, send_news, ban_spartak, mute_user, unmute_user
+from commands import send_helper_text, ban_user_by_reply, unban_user_by_reply, promote_user, send_statistics, \
+    leave_chat, send_matches, send_table, send_news, ban_spartak, mute_user_by_reply,\
+    unmute_user_by_replay
 from checkers import check_greeting_reply, check_spartak_fan
-
 
 bot = telebot.TeleBot(utils.TOKEN)
 wait_answer_from = set()
@@ -18,16 +18,16 @@ def process_message(message):
         send_helper_text(bot, message)
     elif message.text == '/ban@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
-            ban_user(bot, message, banned_users)
+            ban_user_by_reply(bot, message, banned_users)
     elif message.text == '/unban@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
-            unban_user(bot, message, banned_users)
+            unban_user_by_reply(bot, message, banned_users)
     elif message.text == '/mute@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
-            mute_user(bot, message, muted_users)
+            mute_user_by_reply(bot, message, muted_users)
     elif message.text == '/unmute@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
-            unmute_user(bot, message, muted_users)
+            unmute_user_by_replay(bot, message, muted_users)
     elif message.text == '/admin@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
             promote_user(bot, message)
@@ -52,8 +52,8 @@ def reply_message(message):
 
 @bot.message_handler(content_types=['new_chat_members'])
 def greeting(message):
-    bot.send_message(message.chat.id, text='Привет, @' +
-                                           message.new_chat_members[0].username + '! За какую команду болеешь?')
+    greeting_text = 'Привет, @' + message.new_chat_members[0].username + '! За какую команду болеешь?'
+    bot.send_message(message.chat.id, text=greeting_text)
     wait_answer_from.add(message.new_chat_members[0].id)
 
 

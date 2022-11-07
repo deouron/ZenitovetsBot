@@ -15,32 +15,53 @@ def ban_user(bot, message, banned_users):
         bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " уже забанен!")
 
 
-def unban_user(bot, message, banned_users):
+def ban_user_by_reply(bot, message, banned_users):
+    if message.reply_to_message.from_user.id not in banned_users:
+        try:
+            banned_users.add(message.reply_to_message.from_user.id)
+            bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
+            bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " забанен!")
+        except Exception as e:
+            bot.reply_to(message, "Пользователя @" + message.reply_to_message.from_user.username + " нельзя банить!")
+    else:
+        bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " уже забанен!")
+
+
+def unban_user_by_reply(bot, message, banned_users):
     if message.reply_to_message.from_user.id in banned_users:
-        banned_users.remove(message.reply_to_message.from_user.id)
-        bot.unban_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
-        bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " разбанен!")
+        try:
+            banned_users.remove(message.reply_to_message.from_user.id)
+            bot.unban_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
+            bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " разбанен!")
+        except Exception as e:
+            bot.reply_to(message, "Пользователя @" + message.reply_to_message.from_user.username + " нельзя банить!")
     else:
         bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " уже разбанен!")
 
 
-def mute_user(bot, message, muted_users):
+def mute_user_by_reply(bot, message, muted_users):
     if message.reply_to_message.from_user.id not in muted_users:
-        muted_users.add(message.reply_to_message.from_user.id)
-        bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
-        bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " в муте!")
+        try:
+            muted_users.add(message.reply_to_message.from_user.id)
+            bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
+            bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " в муте!")
+        except Exception as e:
+            bot.reply_to(message, "Пользователя @" + message.reply_to_message.from_user.username + " нельзя мьютить!")
     else:
         bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " уже в муте!")
 
 
-def unmute_user(bot, message, muted_users):
+def unmute_user_by_replay(bot, message, muted_users):
     if message.reply_to_message.from_user.id in muted_users:
-        muted_users.remove(message.reply_to_message.from_user.id)
-        bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id,
-                                 can_send_messages=True, can_send_media_messages=True, can_send_polls=True,
-                                 can_send_other_messages=True, can_add_web_page_previews=True, can_change_info=True,
-                                 can_invite_users=True, can_pin_messages=True)
-        bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " вышел из мута!")
+        try:
+            muted_users.remove(message.reply_to_message.from_user.id)
+            bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id,
+                                     can_send_messages=True, can_send_media_messages=True, can_send_polls=True,
+                                     can_send_other_messages=True, can_add_web_page_previews=True, can_change_info=True,
+                                     can_invite_users=True, can_pin_messages=True)
+            bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " вышел из мута!")
+        except Exception as e:
+            bot.reply_to(message, "Пользователя @" + message.reply_to_message.from_user.username + " нельзя мьютить!")
     else:
         bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " уже вышел из мута!")
 
@@ -83,5 +104,9 @@ def send_table(bot, message):
 
 
 def ban_spartak(bot, message):
-    bot.reply_to(message, "Любитель спартака забанен!")
-    bot.kick_chat_member(chat_id=message.chat.id, user_id=message.from_user.id)
+    try:
+        bot.kick_chat_member(chat_id=message.chat.id, user_id=message.from_user.id)
+        bot.reply_to(message, "Любитель спартака забанен!")
+    except Exception as e:
+        bot.reply_to(message, "Этого любителя спартака нельзя забанить... но пусть он смотрит на таблицу)")
+        send_table(bot, message)
