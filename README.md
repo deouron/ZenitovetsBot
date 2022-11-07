@@ -58,4 +58,6 @@ https://hub.docker.com/r/deouron/zenitovets_bot
 
 (2) Код задания на Github
 
+https://github.com/deouron/ZenitovetsBot
+
 Если вы захотите добавить что-то еще и потренироваться в ботах в телеге - добавляйте, оценим)
