@@ -2,11 +2,14 @@ import TOKEN
 
 
 def count_admins(bot, message):
-    cnt = 0
+    people_cnt = 0
+    bots_cnt = 0
     for admin in bot.get_chat_administrators(message.chat.id):
         if not admin.user.is_bot:
-            cnt += 1
-    return str(cnt)
+            people_cnt += 1
+        else:
+            bots_cnt += 1
+    return str(people_cnt), str(bots_cnt)
 
 
 def is_replied(bot, message):

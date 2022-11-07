@@ -31,7 +31,8 @@ def promote_user(bot, message):
 def send_statistics(bot, message):
     bot.send_message(message.chat.id, text='Участников в чате: '
                                            + str(bot.get_chat_member_count(message.chat.id))
-                                           + '\nАдминов в чате (без ботов): ' + utils.count_admins(bot, message))
+                                           + '\nАдминов в чате (без ботов): ' + utils.count_admins(bot, message)[0]
+                                           + '\nАдминов в чате (ботов): ' + utils.count_admins(bot, message)[1])
 
 
 def leave_chat(bot, message):
