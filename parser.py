@@ -49,7 +49,7 @@ def news_parser():
     for news in root.find_all('a'):
         if news.get('href') is None:
             continue
-        if cnt == utils.max_news_cnt:
+        if cnt == utils.MAX_NEWS_CNT:
             break
         if news.get('href') is not None:
             link = news.get('href')
@@ -67,7 +67,7 @@ def table_parser():
     page = r.content.decode("utf-8")
     soup = BeautifulSoup(page, 'html.parser')
     root = soup.find('div', {'id': 'TablescoreTable_1113111'})
-    for place in range(1, utils.teams_cnt + 1):
+    for place in range(1, utils.TEAMS_CNT + 1):
         cur_row = root.find('div', {'data-teams': str(place)})
         cur_team = cur_row.find('span', {'class': 'tablescore__link'}).span.string.strip()
         cur_points = cur_row.find('div', {'data-param': 'score'}).string
