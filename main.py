@@ -1,31 +1,13 @@
 import telebot
 import utils
 from utils import check_admin, is_replied
-import parser
+import parsers
 from commands import send_helper_text, kick_user, bun_user, promote_user, send_statistics, leave_chat, send_matches, \
     send_table, send_news, ban_spartak
+from checkers import check_greeting_reply, check_spartak_fan
 
 
-bot = telebot.TeleBot(utils.TOKEN)
-wait_answer_from = set()
-
-
-def check_greeting_reply(message):
-    if message.from_user.id in wait_answer_from:
-        bot.send_message(message.chat.id, text=message.from_user.first_name +
-                                               ' болеет за ' + message.text + ' (либо проигнорил мой вопрос 😢)')
-        wait_answer_from.remove(message.from_user.id)
-
-
-@bot.message_handler(content_types=['text'])
-def reply_message(message):
-    check_greeting_reply(message)
-
-    for word in utils.BAN_WORDS:
-        if word in message.text:
-            ban_spartak(bot, message)
-            break
-
+def process_message(message):
     if message.text == '/help@zenitovets_bot':
         send_helper_text(bot, message)
     elif message.text == '/ban@zenitovets_bot':
@@ -47,6 +29,17 @@ def reply_message(message):
         send_news(bot, message)
     elif message.text == '/table@zenitovets_bot':
         send_table(bot, message)
+
+
+bot = telebot.TeleBot(utils.TOKEN)
+wait_answer_from = set()
+
+
+@bot.message_handler(content_types=['text'])
+def reply_message(message):
+    check_greeting_reply(bot, message, wait_answer_from)
+    check_spartak_fan(bot, message)
+    process_message(message)
 
 
 @bot.message_handler(content_types=['new_chat_members'])

@@ -1,5 +1,5 @@
 import utils
-import parser
+import parsers
 
 
 def send_helper_text(bot, message):
@@ -17,7 +17,11 @@ def bun_user(bot, message):
 
 
 def promote_user(bot, message):
-    bot.promote_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
+    bot.promote_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id,
+                            can_change_info=True, can_invite_users=True, can_delete_messages=True,
+                            can_restrict_members=True,
+                            can_pin_messages=True, can_promote_members=True,
+                            can_manage_chat=True, can_manage_video_chats=True, can_manage_voice_chats=True)
     bot.reply_to(message, message.reply_to_message.from_user.first_name + " - новый админ!")
 
 
