@@ -37,17 +37,17 @@ def leave_chat(bot, message):
 
 
 def send_matches(bot, message):
-    for match in parser.matches_parser():
+    for match in parsers.matches_parser():
         bot.send_message(message.chat.id, text=match)
 
 
 def send_news(bot, message):
-    for news in parser.news_parser():
+    for news in parsers.news_parser():
         bot.send_message(message.chat.id, text=str(news[1]) + '\n' + news[0])
 
 
 def send_table(bot, message):
-    bot.send_message(message.chat.id, text=parser.table_parser())
+    bot.send_message(message.chat.id, text=parsers.table_parser())
 
 
 def ban_spartak(bot, message):
