@@ -44,8 +44,8 @@ def reply_message(message):
 
 @bot.message_handler(content_types=['new_chat_members'])
 def greeting(message):
-    bot.send_message(message.chat.id, text='Привет, ' +
-                                           message.new_chat_members[0].first_name + '! За какую команду болеешь?')
+    bot.send_message(message.chat.id, text='Привет, @' +
+                                           message.new_chat_members[0].username + '! За какую команду болеешь?')
     wait_answer_from.add(message.new_chat_members[0].id)
 
 
