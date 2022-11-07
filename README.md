@@ -54,7 +54,7 @@
 
 (1) Ссылку на образ в Docker Hub (который мы будем проверять)
 
-https://hub.docker.com/r/deouron/deouron
+https://hub.docker.com/r/deouron/zenitovets_bot
 
 (2) Код задания на Github
 
