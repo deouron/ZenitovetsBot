@@ -3,8 +3,14 @@ import utils
 from utils import check_admin, is_replied
 import parsers
 from commands import send_helper_text, ban_user, unban_user, promote_user, send_statistics, leave_chat, send_matches, \
-    send_table, send_news, ban_spartak
+    send_table, send_news, ban_spartak, mute_user, unmute_user
 from checkers import check_greeting_reply, check_spartak_fan
+
+
+bot = telebot.TeleBot(utils.TOKEN)
+wait_answer_from = set()
+banned_users = set()
+muted_users = set()
 
 
 def process_message(message):
@@ -12,10 +18,16 @@ def process_message(message):
         send_helper_text(bot, message)
     elif message.text == '/ban@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
-            ban_user(bot, message)
+            ban_user(bot, message, banned_users)
     elif message.text == '/unban@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
-            unban_user(bot, message)
+            unban_user(bot, message, banned_users)
+    elif message.text == '/mute@zenitovets_bot':
+        if is_replied(bot, message) and check_admin(bot, message):
+            mute_user(bot, message, muted_users)
+    elif message.text == '/unmute@zenitovets_bot':
+        if is_replied(bot, message) and check_admin(bot, message):
+            unmute_user(bot, message, muted_users)
     elif message.text == '/admin@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
             promote_user(bot, message)
@@ -29,10 +41,6 @@ def process_message(message):
         send_news(bot, message)
     elif message.text == '/table@zenitovets_bot':
         send_table(bot, message)
-
-
-bot = telebot.TeleBot(utils.TOKEN)
-wait_answer_from = set()
 
 
 @bot.message_handler(content_types=['text'])
