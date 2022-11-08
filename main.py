@@ -28,7 +28,7 @@ def process_message(message):
     elif message.text == '/unmute@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
             unmute_user_by_replay(bot, message, muted_users)
-    elif message.text == '/all_muteed@zenitovets_bot':
+    elif message.text == '/all_muted@zenitovets_bot':
         all_muted(bot, message, muted_users)
     elif message.text == '/admin@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
