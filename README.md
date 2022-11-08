@@ -1,4 +1,4 @@
-# Зенитовец
+# @zenitovets_bot
 
 ### Использование
 - `/help@zenitovets_bot` - помощь
