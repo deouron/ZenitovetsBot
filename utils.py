@@ -12,22 +12,6 @@ def count_admins(bot, message):
     return str(people_cnt), str(bots_cnt)
 
 
-def is_replied(bot, message):
-    if not message.reply_to_message:
-        bot.reply_to(message, "Необходимо написать в ответ на сообщение пользователя!")
-        return False
-    return True
-
-
-def check_admin(bot, message):
-    is_admin = bot.get_chat_member(message.chat.id, message.from_user.id).status == 'administrator' or \
-               bot.get_chat_member(message.chat.id, message.from_user.id).status == 'creator'
-    if is_admin:
-        return True
-    bot.reply_to(message, text='Доступно только для админов!')
-    return False
-
-
 BAN_WORDS = ['спартакчемпион', 'спартакЧемпион', 'спартак чемпион', 'спартак Чемпион', 'спартак-чемпион',
              'спартак-Чемпион', 'спартак- чемпион', 'спартак- Чемпион', 'спартак чемпион', 'спартак Чемпион',
              'спартак  чемпион', 'спартак  Чемпион', 'спартак -чемпион', 'спартак -Чемпион', 'спартак - чемпион',

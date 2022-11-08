@@ -6,15 +6,6 @@ def send_helper_text(bot, message):
     bot.send_message(message.chat.id, text=utils.HELPER_TEXT)
 
 
-def ban_user(bot, message, banned_users):
-    if message.reply_to_message.from_user.id not in banned_users:
-        banned_users.add(message.reply_to_message.from_user.id)
-        bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
-        bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " забанен!")
-    else:
-        bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " уже забанен!")
-
-
 def ban_user_by_reply(bot, message, banned_users):
     if message.reply_to_message.from_user.id not in banned_users:
         try:
@@ -108,5 +99,4 @@ def ban_spartak(bot, message):
         bot.kick_chat_member(chat_id=message.chat.id, user_id=message.from_user.id)
         bot.reply_to(message, "Любитель спартака забанен!")
     except Exception as e:
-        bot.reply_to(message, "Этого любителя спартака нельзя забанить... но пусть он смотрит на таблицу)")
-        send_table(bot, message)
+        bot.reply_to(message, "Этого любителя спартака нельзя забанить...")

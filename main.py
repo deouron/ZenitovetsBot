@@ -1,11 +1,9 @@
 import telebot
 import utils
-from utils import check_admin, is_replied
-import parsers
 from commands import send_helper_text, ban_user_by_reply, unban_user_by_reply, promote_user, send_statistics, \
-    leave_chat, send_matches, send_table, send_news, ban_spartak, mute_user_by_reply,\
+    leave_chat, send_matches, send_table, send_news, mute_user_by_reply, \
     unmute_user_by_replay
-from checkers import check_greeting_reply, check_spartak_fan
+from checkers import check_greeting_reply, check_spartak_fan, check_admin, is_replied
 
 bot = telebot.TeleBot(utils.TOKEN)
 wait_answer_from = set()
@@ -17,7 +15,7 @@ def process_message(message):
     if message.text == '/help@zenitovets_bot':
         send_helper_text(bot, message)
     elif message.text == '/ban@zenitovets_bot':
-        if is_replied(bot, message) and check_admin(bot, message):
+        if check_admin(bot, message) and is_replied(bot, message):
             ban_user_by_reply(bot, message, banned_users)
     elif message.text == '/unban@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
