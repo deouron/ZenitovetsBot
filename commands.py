@@ -9,7 +9,7 @@ def send_helper_text(bot, message):
 def ban_user_by_reply(bot, message, banned_users):
     if message.reply_to_message.from_user.username not in banned_users:
         try:
-            bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
+            bot.kick_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
             banned_users.add(message.reply_to_message.from_user.username)
             bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " забанен!")
         except Exception as e:
