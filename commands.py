@@ -14,6 +14,7 @@ def ban_user_by_reply(bot, message, banned_users):
             bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " забанен!")
         except Exception as e:
             bot.reply_to(message, "Пользователя @" + message.reply_to_message.from_user.username + " нельзя банить!")
+            print(e)
     else:
         bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " уже забанен!")
 
@@ -26,16 +27,17 @@ def unban_user_by_reply(bot, message, banned_users):
             bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " разбанен!")
         except Exception as e:
             bot.reply_to(message, "Пользователя @" + message.reply_to_message.from_user.username + " нельзя банить!")
+            print(e)
     else:
         bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " уже разбанен!")
 
 
 def all_banned(bot, message, banned_users):
     text = ''
-    for user in banned_users:
-        text += '@' + user + '\n'
-    if len(text) > 0:
-        bot.reply_to(message, 'Пользователей в бане: ' + str(len(text)) + '\n' + text)
+    if len(banned_users) > 0:
+        for user in banned_users:
+            text += '@' + user + '\n'
+        bot.reply_to(message, 'Пользователей в бане: ' + str(len(banned_users)) + '\n' + text)
     else:
         bot.reply_to(message, 'Никто не забанен!')
 
@@ -43,11 +45,12 @@ def all_banned(bot, message, banned_users):
 def mute_user_by_reply(bot, message, muted_users):
     if message.reply_to_message.from_user.username not in muted_users:
         try:
-            bot.restrict_chat_member(chat_id=message.chat.username, user_id=message.reply_to_message.from_user.id)
-            muted_users.add(message.reply_to_message.from_user.id)
+            bot.restrict_chat_member(chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id)
+            muted_users.add(message.reply_to_message.from_user.username)
             bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " в муте!")
         except Exception as e:
             bot.reply_to(message, "Пользователя @" + message.reply_to_message.from_user.username + " нельзя мьютить!")
+            print(e)
     else:
         bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " уже в муте!")
 
@@ -63,16 +66,17 @@ def unmute_user_by_replay(bot, message, muted_users):
             bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " вышел из мута!")
         except Exception as e:
             bot.reply_to(message, "Пользователя @" + message.reply_to_message.from_user.username + " нельзя мьютить!")
+            print(e)
     else:
         bot.reply_to(message, "Пользователь @" + message.reply_to_message.from_user.username + " уже вышел из мута!")
 
 
 def all_muted(bot, message, muted_users):
     text = ''
-    for user in muted_users:
-        text += '@' + user + '\n'
-    if len(text) > 0:
-        bot.reply_to(message, 'Пользователей в муте: ' + str(len(text)) + '\n' + text)
+    if len(muted_users) > 0:
+        for user in muted_users:
+            text += '@' + user + '\n'
+        bot.reply_to(message, 'Пользователей в муте: ' + str(len(muted_users)) + '\n' + text)
     else:
         bot.reply_to(message, 'Никто не в муте!')
 

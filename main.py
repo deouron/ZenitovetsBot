@@ -20,7 +20,7 @@ def process_message(message):
     elif message.text == '/unban@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
             unban_user_by_reply(bot, message, banned_users)
-    elif message.text == '/all_bannned@zenitovets_bot':
+    elif message.text == '/all_banned@zenitovets_bot':
         all_banned(bot, message, banned_users)
     elif message.text == '/mute@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
