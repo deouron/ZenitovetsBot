@@ -2,7 +2,7 @@ import telebot
 import utils
 from commands import send_helper_text, ban_user_by_reply, unban_user_by_reply, promote_user, send_statistics, \
     leave_chat, send_matches, send_table, send_news, mute_user_by_reply, \
-    unmute_user_by_replay
+    unmute_user_by_replay, all_banned, all_muted
 from checkers import check_greeting_reply, check_spartak_fan, check_admin, is_replied
 
 bot = telebot.TeleBot(utils.TOKEN)
@@ -20,12 +20,16 @@ def process_message(message):
     elif message.text == '/unban@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
             unban_user_by_reply(bot, message, banned_users)
+    elif message.text == '/all_bannned@zenitovets_bot':
+        all_banned(bot, message, banned_users)
     elif message.text == '/mute@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
             mute_user_by_reply(bot, message, muted_users)
     elif message.text == '/unmute@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
             unmute_user_by_replay(bot, message, muted_users)
+    elif message.text == '/all_muteed@zenitovets_bot':
+        all_muted(bot, message, muted_users)
     elif message.text == '/admin@zenitovets_bot':
         if is_replied(bot, message) and check_admin(bot, message):
             promote_user(bot, message)
